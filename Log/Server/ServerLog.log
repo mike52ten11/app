@@ -1,0 +1,130 @@
+2024-05-24 08:23:43 - django.request - WARNING - Not Found: /home/
+2024-05-24 08:23:46 - django.request - WARNING - Not Found: /
+2024-05-24 08:23:48 - django.request - WARNING - Not Found: /favicon.ico
+2024-05-24 08:24:08 - System - INFO - request.method= GET
+2024-05-24 08:24:08 - System - WARNING - 使用者參數 ['']
+2024-05-24 09:19:08 - django.request - WARNING - Not Found: /home/
+2024-05-24 09:39:29 - System - INFO - request.method= GET
+2024-05-24 09:39:29 - System - INFO - len(request.GET)>0
+2024-05-24 09:39:31 - System - INFO - 裝置ID=8dc09891-2d5f-46fc-9947-043ba422c452,使用者=tpri ,回傳 2024-03-05 00:00:00+08:00到2024-03-05 23:59:00+08:00 的用電量= ['21.100000']
+2024-05-24 09:41:30 - System - INFO - request.method= GET
+2024-05-24 09:42:04 - System - INFO - request.method= GET
+2024-05-24 09:42:04 - System - INFO - tpri要求綁定裝置ID8dc09891-2d5f-46fc-9947-043ba422c452結果: 已被tpri綁定
+2024-05-24 09:43:49 - django.utils.autoreload - INFO - D:\Mike\Work_space\業務\APP工作\from_github\backend\writedata\views.py changed, reloading.
+2024-05-24 09:44:04 - System - INFO - request.method= GET
+2024-05-24 09:44:04 - System - INFO - tpri要求綁定裝置ID8dc09891-2d5f-46fc-9947-043ba422c452結果: 已被tpri綁定
+2024-05-24 09:44:15 - System - INFO - request.method= GET
+2024-05-24 09:44:15 - System - INFO - tpri要求綁定裝置ID8dc09891-2d5f-46fc-9947-043ba422c452結果: 已被tpri綁定
+2024-05-24 09:44:38 - System - INFO - request.method= GET
+2024-05-24 09:44:38 - System - INFO - tpri要求綁定裝置ID8dc09891-2d5f-46fc-9947-043ba422c452結果: 已被tpri綁定
+2024-05-24 09:44:48 - System - INFO - request.method= GET
+2024-05-24 09:44:59 - System - INFO - request.method= GET
+2024-05-24 09:45:24 - System - INFO - request.method= GET
+2024-05-24 09:45:24 - System - INFO - tpri要求綁定裝置ID8dc09891-2d5f-46fc-9947-043ba422c452結果: 已被tpri綁定
+2024-05-24 09:45:56 - System - INFO - request.method= GET
+2024-05-24 09:45:56 - System - INFO - len(request.GET)>0
+2024-05-24 10:15:36 - System - INFO - request.method= GET
+2024-05-24 10:15:36 - System - INFO - len(request.GET)>0
+2024-05-24 10:15:42 - System - INFO - request.method= GET
+2024-05-24 10:15:42 - System - INFO - len(request.GET)>0
+2024-05-24 10:15:44 - System - INFO - 裝置ID=8dc09891-2d5f-46fc-9947-043ba422c452,使用者=tpri ,回傳 2024-03-05 00:00:00+08:00到2024-03-05 23:59:00+08:00 的用電量= ['21.100000']
+2024-05-24 14:36:49 - django.request - WARNING - Not Found: /home/
+2024-05-24 14:37:13 - django.request - WARNING - Not Found: /favicon.ico
+2024-05-24 14:42:48 - django.utils.autoreload - INFO - D:\Mike\Work_space\業務\APP工作\from_github\backend\writedata\views.py changed, reloading.
+2024-05-24 14:43:43 - django.utils.autoreload - INFO - D:\Mike\Work_space\業務\APP工作\from_github\backend\writedata\views.py changed, reloading.
+2024-05-24 14:45:00 - django.utils.autoreload - INFO - D:\Mike\Work_space\業務\APP工作\from_github\backend\writedata\views.py changed, reloading.
+2024-05-24 14:45:48 - System - INFO - request.method= GET
+2024-05-24 14:45:49 - django.request - ERROR - Internal Server Error: /api/register_device/
+Traceback (most recent call last):
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\Work_space\業務\APP工作\from_github\backend\writedata\views.py", line 122, in get
+    if request_deviceUuid=='None':
+       ^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'request_deviceUuid' where it is not associated with a value
+2024-05-24 14:45:56 - System - INFO - request.method= GET
+2024-05-24 14:45:56 - django.request - ERROR - Internal Server Error: /api/register_device/
+Traceback (most recent call last):
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\Work_space\業務\APP工作\from_github\backend\writedata\views.py", line 122, in get
+    if request_deviceUuid=='None':
+       ^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'request_deviceUuid' where it is not associated with a value
+2024-05-24 15:31:59 - django.utils.autoreload - INFO - D:\Mike\Work_space\業務\APP工作\from_github\backend\writedata\views.py changed, reloading.
+2024-05-24 15:32:16 - django.utils.autoreload - INFO - D:\Mike\Work_space\業務\APP工作\from_github\backend\writedata\views.py changed, reloading.
+2024-05-24 15:32:23 - System - INFO - request.method= GET
+2024-05-24 15:32:23 - django.request - ERROR - Internal Server Error: /api/register_device/
+Traceback (most recent call last):
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Mike\ProgramData\anaconda3\envs\APP_CMS\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Mike\Work_space\業務\APP工作\from_github\backend\writedata\views.py", line 122, in get
+    if request_deviceUuid=='None':
+       ^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'request_deviceUuid' where it is not associated with a value
+2024-05-24 15:35:43 - django.utils.autoreload - INFO - D:\Mike\Work_space\業務\APP工作\from_github\backend\writedata\views.py changed, reloading.
+2024-05-24 15:36:13 - System - INFO - request.method= GET
+2024-05-24 15:36:13 - System - INFO - len(request.GET)>0
+2024-05-24 15:36:51 - System - INFO - request.method= GET
+2024-05-24 15:36:51 - System - INFO - len(request.GET)>0
+2024-05-24 15:36:53 - System - INFO - 裝置ID=8dc09891-2d5f-46fc-9947-043ba422c452,使用者=tpri ,回傳 2024-03-05 00:00:00+08:00到2024-03-05 23:59:00+08:00 的用電量= ['21.100000']

@@ -29,7 +29,7 @@ urlpatterns = [
     path('api/register/', views.RegisterView.as_view(), name = "register"),
     path('api/register_device/', views.DeviceListCreate.as_view(), name = "register_device"),
     path('api/update_device/', views.update_device, name = "update_device"),
-    path('api/Unbind_device/', views.Unbind_device,name='Unbind_device'),
+    path('api/Unbind_device/', views.DeviceUnbind.as_view(),name='Unbind_device'),
     path('api/updatedata/', views.updatedata,name='updatedata'),
     path('api/deletealldata/', views.deleteall,name='deleteall'),
 

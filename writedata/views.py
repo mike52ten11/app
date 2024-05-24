@@ -66,10 +66,7 @@ class LoginView(APIView):
 
         username = request.GET.get('username')
         password = request.GET.get('password')
-        print(username)
-        print(password)
         results = login_user(username=username, password=password)
-        print(results)
         if results["success"]:            
             responsedata = {'message':results['message'],
                                 'error_message': results['error_message']}
@@ -86,28 +83,62 @@ class LoginView(APIView):
 
 
 class DeviceListCreate(generics.ListCreateAPIView):
+    '''
+    =======================================================================================================
+                
+                                    使用者 綁定 裝置
+        功能: 使用者 綁定 多個裝置，傳入的必要參數是使用者名稱、QRID
+
+        Step 1 : 檢查是否有輸入參數
+        Step 2 : 檢查必要參數是否都有輸入
+        Step 3 : 檢查使用者有沒有註冊
+        Step 4 : 檢查資料庫有沒有這個裝置
+        Step 5 : 檢查這個裝置ID有沒有被綁定
+        Step 6 : 如果都有必要參數(deviceUuid、和 username)就執行綁定的動作
+    =======================================================================================================
+
+    '''    
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
 
     def get(self, request, *args, **krgs):
-        print(request.method)
+        
         logger.info('request.method= %s',request.method)
+        #Step 1 : 檢查是否有輸入參數
         if len(request.GET)>0:
-            
+
             request_username = request.GET.get('username','None')
-            print(request_username)
+            request_qrid = request.GET.get('qrid','None')
+
+            #Step 2 檢查必要參數是否都有輸入
+            Errormessage = "錯誤參數"
+            request_username_of_Errormessage=''
+            request_qrid_of_Errormessage=''
+
+            if request_username=='None':
+                request_username_of_Errormessage = " 參數裡沒有 username"
+                
+
+            if request_qrid=='None':
+                request_qrid_of_Errormessage = " 參數裡沒有 qrid"
+
+            if request_username=='None' or request_qrid=='None':
+
+                logger.error('API Server參數錯誤 %s',f"{Errormessage}{request_username_of_Errormessage}{request_qrid_of_Errormessage}")
+
+                return JsonResponse({'message':f"API Server參數錯誤 {Errormessage}{request_username_of_Errormessage}{request_qrid_of_Errormessage}"}, safe=False)
+                        
             
-            # print(USR.values())
+                
+            #Step 3 檢查使用者有沒有註冊
             if not User.objects.filter(username=request_username).exists():
                 responseData = {'message':'error',
                                       'error_message':'使用者='+request_username+' 未註冊'  }
                 return JsonResponse({'message':responseData}
                                       ,json_dumps_params={'ensure_ascii': False}
                                       , safe=False) 
-
-            request_qrid = request.GET.get('qrid','None')  
-            print(request_qrid) 
-            
+            #Step 4 檢查資料庫有沒有這個裝置
+              
             if request_qrid is not None:
                 if not DeviceTransfor.objects.filter(QRid=request_qrid).exists(): 
                     responseData = {'message':'error',
@@ -116,18 +147,13 @@ class DeviceListCreate(generics.ListCreateAPIView):
                                         ,json_dumps_params={'ensure_ascii': False}
                                         , safe=False) 
                 else:
+                    
                     request_deviceUuid = DeviceTransfor.objects.filter(QRid=request_qrid)
                     request_deviceUuid = request_deviceUuid.values()
                     request_deviceUuid = request_deviceUuid[0].get('deviceUuid')
+                    
 
-            # request_deviceUuid = request.GET.get('deviceUuid','None')
-            # if not AMI.objects.filter(deviceUuid=request_deviceUuid).exists():
-            #     responseData = {'message':'error',
-            #                     'error_message':'沒有'+request_deviceUuid+'這個裝置ID'  }
-            #     return JsonResponse({'message':responseData}
-            #                           ,json_dumps_params={'ensure_ascii': False}
-            #                           , safe=False) 
-
+            #Step 5 檢查這個裝置ID有沒有被綁定
             if  Device.objects.filter(deviceUuid=request_deviceUuid).exists():
 
                 logger.info(request_username+'要求綁定'+\
@@ -139,8 +165,27 @@ class DeviceListCreate(generics.ListCreateAPIView):
                 return JsonResponse({'message':responseData}
                                       ,json_dumps_params={'ensure_ascii': False}
                                       , safe=False) 
+
             logger.info('len(request.GET)>0')
+
+            users = self.get_queryset()
+            serializer = self.serializer_class(users, many=True)        
+            data = serializer.data
+
+            #Step 6 如果都有必要參數(deviceUuid、和 username)就執行綁定的動作
+            if request_deviceUuid!="None" and request_username!="None":
+
+                Device.objects.create(  user= User.objects.filter(username=request_username).first(),
+                                        deviceUuid=request_deviceUuid, 
+                                    ) 
+                            
+                responsedata = {'message':'ok',
+                                'error_message': ''}
+                return JsonResponse({'message':responsedata}, 
+                                    json_dumps_params={'ensure_ascii': False},
+                                    safe=False)
         else: 
+            #如果沒給參數 return error
             userrequestkey=['']
             for k in request.GET:
                 userrequestkey = userrequestkey.append(k)
@@ -148,39 +193,9 @@ class DeviceListCreate(generics.ListCreateAPIView):
             return JsonResponse({'message':'錯誤的參數, api/register_device/?username=&deviceUuid='}, 
                                 json_dumps_params={'ensure_ascii': False},
                                 safe=False) 
-        Errormessage = "錯誤參數"
-        request_username_of_Errormessage=''
-        request_deviceUuid_of_Errormessage=''
 
-        if request_username=='None':
-            request_username_of_Errormessage = " 參數裡沒有 username"
-            
-
-        if request_deviceUuid=='None':
-            request_deviceUuid_of_Errormessage = " 參數裡沒有 deviceUuid"
-
-        if request_username=='None' or request_deviceUuid=='None':
-
-            logger.error('API Server參數錯誤 %s',Errormessage+request_username_of_Errormessage+request_deviceUuid_of_Errormessage)
-
-            return JsonResponse({'message':'API Server參數錯誤'+Errormessage+request_username_of_Errormessage+request_deviceUuid_of_Errormessage}, safe=False)
         
-        
-        users = self.get_queryset()
-        serializer = self.serializer_class(users, many=True)        
-        data = serializer.data
 
-        if request_deviceUuid!="None" and request_username!="None":
-
-            Device.objects.create(  user= User.objects.filter(username=request_username).first(),
-                                    deviceUuid=request_deviceUuid, 
-                                ) 
-                         
-            responsedata = {'message':'ok',
-                            'error_message': ''}
-            return JsonResponse({'message':responsedata}, 
-                                json_dumps_params={'ensure_ascii': False},
-                                safe=False)
 
 def update_device(request, *args, **krgs):
 
@@ -213,38 +228,61 @@ def update_device(request, *args, **krgs):
                         json_dumps_params={'ensure_ascii': False},
                         safe=False)
 
-def Unbind_device(request, *args, **krgs):
+class DeviceUnbind(APIView):
 
-    request_username = request.GET.get('username','None')
-    request_qrid = request.GET.get('qrid','None')
-    request_deviceUuid = qrid_to_deviceuuid(request_qrid)
+    '''
+    =======================================================================================================
+                
+                                    裝置解綁
+        功能: 解除裝置ID與使用者的綁定關係，傳入的必要參數是使用者名稱、QRID
+        效果: 一個使用者可解除多個屬於他的裝置ID
 
-    if not User.objects.filter(username=request_username).exists():
-        responseData = {'message':'error',
-                        'error_message':'使用者='+request_username+' 未註冊'  }
-        return JsonResponse({'message':responseData}
-                                ,json_dumps_params={'ensure_ascii': False}
-                                , safe=False)    
-    delete_id = Device.objects.filter( user=User.objects.filter(username=request_username).first(),
-                                       deviceUuid=request_deviceUuid)
-    print(delete_id)
-    if delete_id.exists():
-        delete_id.delete()
-        print(delete_id)
-        # Device.objects.delete(pk=delete_id)
-        responseData = {'message':'ok',
-                        'error_message': '' }
-        return JsonResponse({'message':responseData}
-                                ,json_dumps_params={'ensure_ascii': False}
-                                , safe=False)         
-        # delete_id = delete_id.values()[0].get('id')
+        Step 1 : 取得參數(username，qrid)
+        Step 2 : 使用qrid 取得裝置ID(deviceUuid )
+        Step 3 : 確認使用者是否註冊 
+                (1) 未註冊 ---> return  {'message':'error','error_message':'使用者xxx未註冊'  }
+        Step 4 : 使用 使用者名稱 和 裝置ID 取得資料庫的 ID  
+        Step 5 : 刪除在資料庫的id   
+    =======================================================================================================
 
-    else:
-        responseData = {'message':'error',
-                'error_message': '使用者未綁定任何裝置ID或這個裝置ID未被綁定' }
-        return JsonResponse({'message':responseData}
-                                ,json_dumps_params={'ensure_ascii': False}
-                                , safe=False)         
+    '''
+    def get(self, request, *args, **krgs):
+
+        # Step 1 : 取得參數(username，qrid，deviceUuid )
+        request_username = request.GET.get('username','None')
+        request_qrid = request.GET.get('qrid','None')
+
+        # Step 2 : 使用qrid 取得裝置ID
+        request_deviceUuid = qrid_to_deviceuuid(request_qrid)
+
+        # Step 3 : 確認使用者是否註冊
+        if not User.objects.filter(username=request_username).exists():
+            responseData = {'message':'error',
+                            'error_message':f'使用者= {request_username} 未註冊'  }
+            return JsonResponse({'message':responseData}
+                                    ,json_dumps_params={'ensure_ascii': False}
+                                    , safe=False) 
+        # Step 4 : 使用 使用者名稱 和 裝置ID 取得資料庫的 ID
+        delete_id = Device.objects.filter( user=User.objects.filter(username=request_username).first(),
+                                        deviceUuid=request_deviceUuid)
+        # Step 5 : 刪除這個ID
+        if delete_id.exists():
+            delete_id.delete()
+ 
+            responseData = {'message':'ok',
+                            'error_message': '' }
+            return JsonResponse({'message':responseData}
+                                    ,json_dumps_params={'ensure_ascii': False}
+                                    , safe=False)         
+            
+
+        else:
+            responseData = {'message':'error',
+                    'error_message': '使用者未綁定任何裝置ID或這個裝置ID未被綁定' }
+
+            return JsonResponse({'message':responseData}
+                                    ,json_dumps_params={'ensure_ascii': False}
+                                    , safe=False)         
 
 
 
